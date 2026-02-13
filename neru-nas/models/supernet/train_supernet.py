@@ -75,8 +75,8 @@ def main():
     ])
     tf_test = transforms.Compose([transforms.ToTensor()])
 
-    train_ds = datasets.CIFAR10(root="src/data", train=True, download=True, transform=tf_train)
-    test_ds  = datasets.CIFAR10(root="src/data", train=False, download=True, transform=tf_test)
+    train_ds = datasets.CIFAR10(root="neru-nas/data", train=True, download=True, transform=tf_train)
+    test_ds  = datasets.CIFAR10(root="neru-nas/data", train=False, download=True, transform=tf_test)
 
     train_loader = DataLoader(train_ds, batch_size=args.batch, shuffle=True, num_workers=0)
     test_loader  = DataLoader(test_ds, batch_size=256, shuffle=False, num_workers=0)

@@ -9,7 +9,7 @@ DEVICE="${DEVICE:-cpu}"
 SUPERNET_EPOCHS="${SUPERNET_EPOCHS:-1}"
 ROUTER_EPOCHS="${ROUTER_EPOCHS:-1}"
 
-export PYTHONPATH="$ROOT_DIR/src/models/router${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH="$ROOT_DIR/neru-nas/models/router${PYTHONPATH:+:$PYTHONPATH}"
 
 mkdir -p artifacts
 
@@ -29,22 +29,22 @@ if [ -n "$MISSING_PKGS" ]; then
 fi
 
 echo "[1/5] Training Big/Little models"
-"$PYTHON_BIN" src/models/supernet/train_supernet.py \
+"$PYTHON_BIN" neru-nas/models/supernet/train_supernet.py \
   --device "$DEVICE" \
   --epochs "$SUPERNET_EPOCHS"
 
 echo "[2/5] Exporting ONNX models"
-"$PYTHON_BIN" src/deployment/export_onnx.py
+"$PYTHON_BIN" neru-nas/deployment/export_onnx.py
 
 echo "[3/5] Measuring latency"
-"$PYTHON_BIN" src/evaluation/measure_latency.py
+"$PYTHON_BIN" neru-nas/evaluation/measure_latency.py
 
 echo "[4/5] Training router"
-"$PYTHON_BIN" src/models/router/train_router.py \
+"$PYTHON_BIN" neru-nas/models/router/train_router.py \
   --device "$DEVICE" \
   --epochs "$ROUTER_EPOCHS"
 
 echo "[5/5] Evaluating routing and generating plots"
-"$PYTHON_BIN" src/evaluation/eval_routing.py
+"$PYTHON_BIN" neru-nas/evaluation/eval_routing.py
 
 echo "Pipeline complete. Artifacts are in $ROOT_DIR/artifacts"

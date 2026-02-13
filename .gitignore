@@ -38,4 +38,5 @@ mlruns/
 
 # Repo-specific large data directories
 dynamic_demo/data/
+neru-nas/data/
 dynamic_demo/artifacts/

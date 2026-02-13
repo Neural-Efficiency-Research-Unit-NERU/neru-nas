@@ -85,7 +85,7 @@ def main():
 
     # Data
     tf_test = transforms.Compose([transforms.ToTensor()])
-    test_ds = datasets.CIFAR10(root="src/data", train=False, download=True, transform=tf_test)
+    test_ds = datasets.CIFAR10(root="neru-nas/data", train=False, download=True, transform=tf_test)
     test_loader = DataLoader(test_ds, batch_size=256, shuffle=False, num_workers=0)
 
     # Threshold grids
